@@ -17,12 +17,13 @@ CT = sum(UC_values) + RHE_value
 CT_adjusted = CT / (1 - sT - Infra)
 
 funding_embrapii = CT * (1/3)
+participation_percentage = (funding_embrapii/CT) * 100
 
 problem += CT_adjusted, "Total_Cost"
 
 # Restrições
-problem += (funding_embrapii <= CT * (1/3), "Max_Funding_EMBRAPII")
-problem += (CT - funding_embrapii >= 0, "Remaining_Cost_Non_Negative")
+problem += (funding_embrapii <= CT_adjusted * (1/3), "Max_Funding_EMBRAPII")
+problem += (CT_adjusted - funding_embrapii >= 0, "Remaining_Cost_Non_Negative")
 
 problem.solve()
 
@@ -34,6 +35,7 @@ print("Status: ", problem.status)
 print("Custo Total: ", format_reais(CT))
 print("Custo Total Ajustado: ", format_reais(value(CT_adjusted)))
 print("Financiamento da Embrapii: ", format_reais(funding_embrapii))
+print(f"Participação da Embrapii: {participation_percentage:.2f}%")
 print("Custo Restante a ser dividido: ", format_reais(CT - funding_embrapii))
 
 for i, val in enumerate(UC_values, start=1):
