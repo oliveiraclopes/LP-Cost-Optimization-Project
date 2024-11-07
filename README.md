@@ -1,4 +1,4 @@
-# Lp-Cost-Optimization-Project
+# LP Cost Optimization Project
 
 ## Project Overview
 
